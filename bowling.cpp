@@ -2,7 +2,7 @@
 #include <vector>
 
 using namespace std;
-
+// class to maintain score / 10 throws
 class score
 {
 private:
@@ -27,7 +27,7 @@ void score::score_calc()
         cin >> roll1;
         if (roll1 == 10)
         {
-            cout << "it is a strike" << endl;
+            cout << "it is a strike" << endl;   // if throw1 is 10 consider it sprike
             strike = true;
             frame[i].push_back(roll1);
         }
@@ -40,34 +40,34 @@ void score::score_calc()
             frame[i].push_back(roll2);
             if ((roll1 + roll2) == 10)
             {
-                cout << "it is a spare" << endl;
+                cout << "it is a spare" << endl;   // if throw1+throw2 are 10 consider it spare
                 spare = true;
             }
         }
 
         if (!(strike == true || spare == true))
         {
-            score[i] = roll1 + roll2;
+            score[i] = roll1 + roll2;   // calculate score for current frame if it doesn't have spare / strike
         }
         else
         {
-            score[i] = 10;
+            score[i] = 10;            // if it is spare / strike assign 10 to current frame score
         }
 
         if (prev_spare && i > 0)
         {
-            score[i - 1] += roll1;
+            score[i - 1] += roll1;  // if previous frame has spare add roll1 score to previous frame score
             prev_spare = false;
         }
         if (prev_strike)
         {
-            score[i - 1] += roll1 + roll2;
+            score[i - 1] += roll1 + roll2; // if previous frame has strike add roll1+roll2 score to previous frame score
             prev_strike = false;
         }
         if (i > 0)
-            score[i] += score[i - 1];
+            score[i] += score[i - 1];   // calculate total frame score based on previous score value
 
-        if ((spare || strike) && (i == 9))
+        if ((spare || strike) && (i == 9)) // if it 10th frame & either spare /strike occurs  give player extra throw
         {
             cout << "it is bonus throw" << endl;
             cout << "roll3: ";
@@ -75,7 +75,7 @@ void score::score_calc()
             score[i] += roll3;
             frame[i].push_back(roll3);
         }
-
+// maintain current frame spare / strike flag for next frame caculations
         prev_spare = spare;
         prev_strike = strike;
     }
